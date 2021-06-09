@@ -2,3 +2,4 @@ aiohttp==3.7.4
 SQLAlchemy==1.4.13
 asyncpg==0.22.0
 Flask==1.1.2
+loguru
