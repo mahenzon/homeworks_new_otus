@@ -80,3 +80,11 @@ class TestVehicle:
 
         with pytest.raises(exceptions.NotEnoughFuel):
             vehicle.move(3)
+
+    def test_move_when_exactly_enough_fuel(self, vehicle):
+        assert vehicle.fuel_consumption > 0
+        distance = fake.pyint(3, 9)
+        # exactly enough fuel! after travel fuel will be 0
+        vehicle.fuel = distance * vehicle.fuel_consumption
+        vehicle.move(distance)
+        assert vehicle.fuel == 0
