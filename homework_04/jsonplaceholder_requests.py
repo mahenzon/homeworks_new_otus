@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from aiohttp import ClientSession
-from loguru import logger
 
 
 USERS_DATA_URL = "https://jsonplaceholder.typicode.com/users"
@@ -35,7 +34,7 @@ async def fetch_json_list(service: Service):
     async with ClientSession() as session:
         result = await fetch(session, service.url)
 
-    logger.info("Got {} results for {}, result {}", len(result), service.name, result)
+    # logger.info("Got {} results for {}, result {}", len(result), service.name, result)
     return result
 
 
