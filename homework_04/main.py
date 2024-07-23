@@ -17,10 +17,12 @@ from jsonplaceholder_requests import fetch_users, fetch_posts
 
 async def async_main():
     await create_tables()
-    users_data, posts_data = await asyncio.gather(
-        asyncio.create_task(fetch_users()),
-        asyncio.create_task(fetch_posts()),
-    )
+    async with asyncio.TaskGroup() as tg:
+        users_task = tg.create_task(fetch_users())
+        posts_task = tg.create_task(fetch_posts())
+
+    users_data = users_task.result()
+    posts_data = posts_task.result()
     await fill_users_table(users_data)
     await fill_posts_table(posts_data)
 

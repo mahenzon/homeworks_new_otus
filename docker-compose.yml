@@ -1,4 +1,3 @@
-version: "3"
 
 services:
   # Label used to access the service container

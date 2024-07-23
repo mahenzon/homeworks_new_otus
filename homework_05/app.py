@@ -2,16 +2,10 @@
 Домашнее задание №4
 Первое веб-приложение
 """
-from flask import Flask, render_template
+from create_fastapi_app import create_app
+from views.index import router as router_index
+from views.products import router as router_products
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-
-@app.route("/about/")
-def about():
-    return render_template("about.html")
+app = create_app(create_custom_static_urls=True)
+app.include_router(router_index)
+app.include_router(router_products)

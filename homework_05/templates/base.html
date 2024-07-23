@@ -21,13 +21,13 @@
     {# nav bar #}
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('index') }}">App</a>
+        <a class="navbar-brand" href="{{ url_for('main:index') }}">App</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a href="{{ url_for('about') }}"
+            <a href="{{ url_for('main:about') }}"
                class="nav-link {% if request.endpoint == 'about' -%}active{%- endif %}"
             >
               About

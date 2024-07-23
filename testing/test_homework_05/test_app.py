@@ -1,37 +1,38 @@
+import sys
+
 import pytest
-from faker import Faker
 
 module_app = pytest.importorskip("homework_05.app")
-
-app = module_app.app
 
 
 @pytest.fixture
 def client():
-    app.config['TESTING'] = True
+    try:
+        app = module_app.app
+    except AttributeError:
+        raise pytest.fail("skip testing homework_05 due to lack of FastAPI `app` in the `app.py`")
 
-    with app.test_client() as client:
-        # with app.app_context():
-        #     app.init_db()
-        yield client
+    from fastapi.testclient import TestClient
+
+    return TestClient(app)
 
 
 def test_visit_index(client):
-    rv = client.get("/")
-    assert rv.status_code == 200
+    response = client.get("/")
+    assert response.status_code == 200
 
 
 def test_visit_about(client):
-    rv = client.get("/about/")
-    assert rv.status_code == 200
+    response = client.get("/about/")
+    assert response.status_code == 200
 
 
 def test_nav_present(client):
-    rv = client.get("/")
-    assert b'<nav class="navbar' in rv.data
-    assert b'</nav>' in rv.data
+    response = client.get("/")
+    assert b'<nav class="navbar' in response.content
+    assert b'</nav>' in response.content
 
 
 def test_meta_viewport_present(client):
-    rv = client.get("/")
-    assert b'<meta name="viewport"' in rv.data
+    response = client.get("/")
+    assert b'<meta name="viewport"' in response.content
